@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  web:
+  # Custom Build Process
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_UID: 1000
+        USER_GID: 1000
+    ports:
+      - "8085:80"
+    environment:
+      - SECRET_KEY=Ho2eljKVyJACcjI
+      - FLASK_ENV=production
+      - PYTHONUNBUFFERED=1
+    restart: unless-stopped
+    user: "1000:1000"
+    
+
+volumes:
+  db_data:
+    driver: local
+  logs_data:
+    driver: local
